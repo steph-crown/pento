@@ -17,8 +17,11 @@ defmodule PentoWeb.Router do
   scope "/", PentoWeb do
     pipe_through(:browser)
 
+    # A normal view
     get("/", PageController, :index)
     get("/hello", HelloController, :index)
+
+    # A live view
     live("view-live", ViewLive)
   end
 
