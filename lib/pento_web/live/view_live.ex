@@ -9,8 +9,7 @@ defmodule PentoWeb.ViewLive do
        score: 0,
        message: "Guess a number",
        time: getTime(),
-       correct_guess: :rand.uniform(10),
-       success: false
+       correct_guess: :rand.uniform(10)
      )}
   end
 
@@ -20,6 +19,8 @@ defmodule PentoWeb.ViewLive do
 
     <p><%= @correct_guess %></p>
 
+    <p>Game ends when score is 10</p>
+
     <h2>
       <%= @message <> ": " %>
     </h2>
@@ -28,15 +29,23 @@ defmodule PentoWeb.ViewLive do
       <%= @time %>
     </p>
 
-    <h2>
-      <%= for n <- 1..10 do %>
-        <!-- phx-click is a click handler and "guess" is the click message -->
+    <%= if @score == 10 do %>
+      <p>
+        You win!
+      </p>
+    <% end %>
+
+    <%= if @score < 10 do %>
+      <h2>
+        <%= for n <- 1..10 do %>
+          <!-- phx-click is a click handler and "guess" is the click message -->
         <!-- phx-value-{var_name}={value} : {var_name: value} will be the data that will passed to the handle_event function. It's a param  -->
-        <a href="#" title={"aa#{n}"} phx-click="guess" phx-value-number={n} phx-value-style="ii">
-          <%= n %>
-        </a>
-      <% end %>
-    </h2>
+          <a href="#" title={"aa#{n}"} phx-click="guess" phx-value-number={n} phx-value-style="ii">
+            <%= n %>
+          </a>
+        <% end %>
+      </h2>
+    <% end %>
     """
   end
 
@@ -67,17 +76,33 @@ defmodule PentoWeb.ViewLive do
         )
       }
     else
-      message = "Your guess: #{guess}. Correct. Guess again. "
       score = socket.assigns.score + 1
 
-      {
-        :noreply,
-        assign(
-          socket,
-          message: message,
-          score: score
-        )
-      }
+      if score == 10 do
+        message = "Your guess: #{guess}. Correct. Game over. "
+        score = socket.assigns.score + 1
+
+        {
+          :noreply,
+          assign(
+            socket,
+            message: message,
+            score: score
+          )
+        }
+      else
+        message = "Your guess: #{guess}. Correct. Guess again. "
+
+        {
+          :noreply,
+          assign(
+            socket,
+            message: message,
+            score: score,
+            correct_guess: :rand.uniform(10)
+          )
+        }
+      end
     end
   end
 end
