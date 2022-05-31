@@ -1,3 +1,3 @@
 defmodule PentoWeb.HelloView do
-    use PentoWeb, :view
+  use PentoWeb, :view
 end
