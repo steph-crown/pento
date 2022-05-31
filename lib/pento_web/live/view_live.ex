@@ -4,12 +4,21 @@ defmodule PentoWeb.ViewLive do
   # establishes the initial state for the live
   # view by populating the socket assigns
   def mount(_params, _session, socket) do
-    {:ok, assign(socket, score: 0, message: "Guess a number", time: getTime())}
+    {:ok,
+     assign(socket,
+       score: 0,
+       message: "Guess a number",
+       time: getTime(),
+       correct_guess: :rand.uniform(10),
+       success: false
+     )}
   end
 
   def render(assigns) do
     ~H"""
     <h1>Your score: <%= @score %></h1>
+
+    <p><%= @correct_guess %></p>
 
     <h2>
       <%= @message <> ": " %>
@@ -38,20 +47,37 @@ defmodule PentoWeb.ViewLive do
 
   #  A handle event function
   #   `guess` is the message name for the event
-  def handle_event("guess", %{"number" => guess} = data, socket) do
-    IO.inspect(data)
-    message = "Your guess: #{guess}. Wrong. Guess again. "
-    score = socket.assigns.score - 1
+  def handle_event("guess", %{"number" => guess} = _data, socket) do
+    IO.puts("aysua")
+    IO.inspect(socket.assigns.correct_guess)
+    IO.puts(guess)
 
-    # Returns a tuple and assigns an update to the state
-    # value in the socket.
-    {
-      :noreply,
-      assign(
-        socket,
-        message: message,
-        score: score
-      )
-    }
+    {value, _} = Integer.parse(guess)
+
+    if value != socket.assigns.correct_guess do
+      message = "Your guess: #{guess}. Wrong. Guess again. "
+      score = socket.assigns.score - 1
+
+      {
+        :noreply,
+        assign(
+          socket,
+          message: message,
+          score: score
+        )
+      }
+    else
+      message = "Your guess: #{guess}. Correct. Guess again. "
+      score = socket.assigns.score + 1
+
+      {
+        :noreply,
+        assign(
+          socket,
+          message: message,
+          score: score
+        )
+      }
+    end
   end
 end
