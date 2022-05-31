@@ -33,6 +33,10 @@ defmodule PentoWeb.ViewLive do
       <p>
         You win!
       </p>
+      
+      <button phx-click="restart">
+        Restart
+      </button>
     <% end %>
 
     <%= if @score < 10 do %>
@@ -57,10 +61,6 @@ defmodule PentoWeb.ViewLive do
   #  A handle event function
   #   `guess` is the message name for the event
   def handle_event("guess", %{"number" => guess} = _data, socket) do
-    IO.puts("aysua")
-    IO.inspect(socket.assigns.correct_guess)
-    IO.puts(guess)
-
     {value, _} = Integer.parse(guess)
 
     if value != socket.assigns.correct_guess do
@@ -104,5 +104,18 @@ defmodule PentoWeb.ViewLive do
         }
       end
     end
+  end
+
+  def handle_event("restart", _, socket) do
+    {
+      :noreply,
+      assign(
+        socket,
+        message: "Guess a number",
+        time: getTime(),
+        correct_guess: :rand.uniform(10),
+        score: 0
+      )
+    }
   end
 end
