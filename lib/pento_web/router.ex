@@ -10,6 +10,7 @@ defmodule PentoWeb.Router do
     plug(:put_root_layout, {PentoWeb.LayoutView, :root})
     plug(:protect_from_forgery)
     plug(:put_secure_browser_headers)
+    plug :fetch_current_user
   end
 
   pipeline :api do
