@@ -1,22 +1,28 @@
+alias Pento.Accounts
+
 defmodule PentoWeb.ViewLive do
   use Phoenix.LiveView, layout: {PentoWeb.LayoutView, "live.html"}
 
   # establishes the initial state for the live
   # view by populating the socket assigns
-  def mount(_params, _session, socket) do
+  def mount(_params, session, socket) do
     {:ok,
      assign(socket,
        score: 0,
        message: "Guess a number",
        time: getTime(),
-       correct_guess: :rand.uniform(10)
+       correct_guess: :rand.uniform(10),
+
+       #  Adds session id and current user to state
+       session_id: session["live_socket_id"]
      )}
   end
 
   def render(assigns) do
     ~H"""
     <h1>Your score: <%= @score %></h1>
-
+    <p>Hello <%= @current_user.email %></p>
+    <p>User session <%= @session_id %></p>
     <p><%= @correct_guess %></p>
 
     <p>Game ends when score is 10</p>
