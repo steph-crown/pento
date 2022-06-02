@@ -26,7 +26,8 @@ config :pento, PentoWeb.Endpoint,
   secret_key_base: "6keuZOFizn0LoHYrEjeD2JOJEfOZaXGNMHpsz/EqiSvwl0TxysPedP57inXuO8b0",
   watchers: [
     # Start the esbuild watcher by calling Esbuild.install_and_run(:default, args)
-    esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]}
+    esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]},
+    tailwind: {Tailwind, :install_and_run, [:default, ~w(--watch)]}
   ]
 
 # ## SSL Support
@@ -63,6 +64,14 @@ config :pento, PentoWeb.Endpoint,
       ~r"lib/pento_web/templates/.*(eex)$"
     ]
   ]
+
+# # Watch tailwind
+# config(:pento, PentoWeb.Endpoint, ...,
+#   watchers: [
+#     ...,
+#     tailwind: {Tailwind, :install_and_run, [:default, ~w(--watch)]}
+#   ]
+# )
 
 # Do not include metadata nor timestamps in development logs
 config :logger, :console, format: "[$level] $message\n"
