@@ -33,7 +33,7 @@ defmodule PentoWeb.ViewLive do
       <p>
         You win!
       </p>
-      
+
       <button phx-click="restart">
         Restart
       </button>
