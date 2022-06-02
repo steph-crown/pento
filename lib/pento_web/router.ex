@@ -23,9 +23,6 @@ defmodule PentoWeb.Router do
     # A normal view
     get("/", PageController, :index)
     get("/hello", HelloController, :index)
-
-    # A live view
-    live("/view-live", ViewLive)
   end
 
   # Other scopes may use custom stacks.
@@ -80,6 +77,8 @@ defmodule PentoWeb.Router do
   scope "/", PentoWeb do
     pipe_through [:browser, :require_authenticated_user]
 
+    # A live view
+    live("/view-live", ViewLive)
     get "/users/settings", UserSettingsController, :edit
     put "/users/settings", UserSettingsController, :update
     get "/users/settings/confirm_email/:token", UserSettingsController, :confirm_email
