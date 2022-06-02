@@ -62,6 +62,8 @@ defmodule PentoWeb.Router do
   ## Authentication routes
 
   scope "/", PentoWeb do
+    # If user is authenticated
+    #  redirect to signed_in_path
     pipe_through [:browser, :redirect_if_user_is_authenticated]
 
     get "/users/register", UserRegistrationController, :new
