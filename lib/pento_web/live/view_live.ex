@@ -1,5 +1,3 @@
-alias Pento.Accounts
-
 defmodule PentoWeb.ViewLive do
   use Phoenix.LiveView, layout: {PentoWeb.LayoutView, "live.html"}
 

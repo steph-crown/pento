@@ -17,9 +17,9 @@ defmodule PentoWeb.Router do
     plug(:accepts, ["json"])
   end
 
+  # redirect user if logged in
   scope "/", PentoWeb do
-    pipe_through(:browser)
-
+    pipe_through [:browser, :redirect_if_user_is_authenticated]
     # A normal view
     get("/", PageController, :index)
     get("/hello", HelloController, :index)
