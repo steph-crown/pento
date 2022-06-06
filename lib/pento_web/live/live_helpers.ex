@@ -40,7 +40,7 @@ defmodule PentoWeb.LiveHelpers do
         phx-key="escape"
       >
         <%= if @return_to do %>
-          <%= live_patch("✖",
+          <%= live_patch("x",
             to: @return_to,
             id: "close",
             class: "phx-modal-close",
