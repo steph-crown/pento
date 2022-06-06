@@ -1,5 +1,5 @@
 <div>
-  <h2><%= @title %></h2>
+  <h2 class="mt-6 text-center text-2xl font-bold text-gray-900 mb-8"><%= @title %></h2>
 
   <.form
     let={f}
@@ -8,25 +8,51 @@
     phx-target={@myself}
     phx-change="validate"
     phx-submit="save"
+    class="space-y-6"
   >
-    <%= label(f, :name) %>
-    <%= text_input(f, :name) %>
-    <%= error_tag(f, :name) %>
-
-    <%= label(f, :description) %>
-    <%= text_input(f, :description) %>
-    <%= error_tag(f, :description) %>
-
-    <%= label(f, :unit_price) %>
-    <%= number_input(f, :unit_price, step: "any") %>
-    <%= error_tag(f, :unit_price) %>
-
-    <%= label(f, :sku) %>
-    <%= number_input(f, :sku) %>
-    <%= error_tag(f, :sku) %>
+    <div>
+      <%= label(f, :name, class: "block text-sm font-medium text-gray-700") %>
+      <%= text_input(f, :name,
+        required: true,
+        class:
+          "appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+      ) %>
+      <div class="mt-4 text-sm"><%= error_tag(f, :name) %></div>
+    </div>
 
     <div>
-      <%= submit("Save", phx_disable_with: "Saving...") %>
+      <%= label(f, :description, class: "block text-sm font-medium text-gray-700") %>
+      <%= text_input(f, :description,
+        required: true,
+        class:
+          "appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+      ) %>
+      <div class="mt-4 text-sm"><%= error_tag(f, :description) %></div>
+    </div>
+
+    <div>
+      <%= label(f, :unit_price, class: "block text-sm font-medium text-gray-700") %>
+      <%= number_input(f, :unit_price, step: "any",
+        class:
+          "appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+      ) %>
+      <div class="mt-4 text-sm"><%= error_tag(f, :unit_price) %></div>
+    </div>
+
+
+    <div>
+      <%= label(f, :sku, class: "block text-sm font-medium text-gray-700") %>
+      <%= number_input(f, :sku,
+        class:
+          "appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+      ) %>
+      <div class="mt-4 text-sm"><%= error_tag(f, :sku) %></div>
+    </div>
+
+
+    <div>
+      <%= submit("Save", phx_disable_with: "Saving...", class:
+              "w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500") %>
     </div>
   </.form>
 </div>

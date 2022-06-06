@@ -1,5 +1,3 @@
-
-
 <div class="min-h-full flex flex-col justify-center py-12 sm:px-6 lg:px-8">
   <div class="sm:mx-auto sm:w-full sm:max-w-md">
     <img
@@ -26,11 +24,11 @@
         action={Routes.user_registration_path(@conn, :create)}
         class="space-y-6"
       >
-       <%= if @changeset.action do %>
-    <div class="alert alert-danger">
-      <p>Oops, something went wrong! Please check the errors below.</p>
-    </div>
-  <% end %>
+        <%= if @changeset.action do %>
+          <div class="alert alert-danger">
+            <p>Oops, something went wrong! Please check the errors below.</p>
+          </div>
+        <% end %>
 
         <div>
           <%= label(f, :email, class: "block text-sm font-medium text-gray-700") %>
@@ -39,7 +37,7 @@
             class:
               "appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           ) %>
-            <div class="mt-4 text-sm"><%= error_tag(f, :email) %></div>
+          <div class="mt-4 text-sm"><%= error_tag(f, :email) %></div>
         </div>
         <div>
           <%= label(f, :password, class: "block text-sm font-medium text-gray-700") %>
@@ -48,9 +46,8 @@
             class:
               "appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           ) %>
-            <div class="mt-4 text-sm"><%= error_tag(f, :password) %></div>
+          <div class="mt-4 text-sm"><%= error_tag(f, :password) %></div>
         </div>
-
 
         <div>
           <%= submit("Register",
@@ -121,9 +118,10 @@
 </div>
 
 <div class="relative flex justify-center text-md pb-12">
-            <span class="px-2 bg-white text-gray-500"><%= link("Login", to: Routes.user_session_path(@conn, :new)) %> | <%= link(
-    "Forgot your password?",
-    to: Routes.user_reset_password_path(@conn, :new)
-  ) %></span>
-          </div>
-
+  <span class="px-2 bg-white text-gray-500">
+    <%= link("Login", to: Routes.user_session_path(@conn, :new)) %> | <%= link(
+      "Forgot your password?",
+      to: Routes.user_reset_password_path(@conn, :new)
+    ) %>
+  </span>
+</div>

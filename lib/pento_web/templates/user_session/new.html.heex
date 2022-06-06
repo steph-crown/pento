@@ -131,9 +131,10 @@
 </div>
 
 <div class="relative flex justify-center text-md pb-12">
-            <span class="px-2 bg-white text-gray-500"><%= link("Register", to: Routes.user_registration_path(@conn, :new)) %> | <%= link(
-    "Forgot your password?",
-    to: Routes.user_reset_password_path(@conn, :new)
-  ) %></span>
-          </div>
-
+  <span class="px-2 bg-white text-gray-500">
+    <%= link("Register", to: Routes.user_registration_path(@conn, :new)) %> | <%= link(
+      "Forgot your password?",
+      to: Routes.user_reset_password_path(@conn, :new)
+    ) %>
+  </span>
+</div>
