@@ -27,10 +27,14 @@ defmodule PentoWeb.LiveHelpers do
     assigns = assign_new(assigns, :return_to, fn -> nil end)
 
     ~H"""
-    <div id="modal" class="phx-modal fade-in" phx-remove={hide_modal()}>
+    <div
+      id="modal"
+      class="phx-modal fade-in flex items-end sm:items-center justify-center min-h-full p-4 text-center sm:p-0"
+      phx-remove={hide_modal()}
+    >
       <div
         id="modal-content"
-        class="phx-modal-content fade-in-scale"
+        class="phx-modal-content fade-in-scale relative bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:max-w-lg sm:w-full sm:p-6"
         phx-click-away={JS.dispatch("click", to: "#close")}
         phx-window-keydown={JS.dispatch("click", to: "#close")}
         phx-key="escape"
