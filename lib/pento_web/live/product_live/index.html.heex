@@ -25,7 +25,6 @@
             "inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto"
         ) %>
       </span>
-
     </div>
   </div>
   <div class="mt-8 flex flex-col">
@@ -33,7 +32,6 @@
       <div class="inline-block min-w-full py-2 align-middle">
         <div class="shadow-sm ring-1 ring-black ring-opacity-5">
           <table class="min-w-full border-separate" style="border-spacing: 0">
-            
             <thead class="bg-gray-50">
               <tr>
                 <th
@@ -69,31 +67,40 @@
               </tr>
             </thead>
             <tbody id="products">
-              
               <%= for product <- @products do %>
                 <tr id={"product-#{product.id}"}>
-                  <td><%= product.name %></td>
-                  <td><%= product.description %></td>
-                  <td><%= product.unit_price %></td>
-                  <td><%= product.sku %></td>
-
-                  <td>
+                  <td class="whitespace-nowrap border-b border-gray-200 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8">
+                    <%= product.name %>
+                  </td>
+                  <td class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm text-gray-500 hidden sm:table-cell">
+                    <%= product.description %>r
+                  </td>
+                  <td class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm text-gray-500 hidden lg:table-cell">
+                    <%= product.unit_price %>
+                  </td>
+                  <td class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm text-gray-500">
+                    <%= product.sku %>
+                  </td>
+                  <td class="relative whitespace-nowrap border-b border-gray-200 py-4 pr-4 pl-3 text-right text-sm font-medium sm:pr-6 lg:pr-8">
                     <span>
                       <%= live_redirect("Show",
-                        to: Routes.product_show_path(@socket, :show, product)
+                        to: Routes.product_show_path(@socket, :show, product),
+                        class: "text-indigo-600 hover:text-indigo-900"
                       ) %>
                     </span>
                     <span>
-                      <%= live_patch("Edit",
-                        to: Routes.product_index_path(@socket, :edit, product)
+                      <%= live_redirect("Edit",
+                        to: Routes.product_index_path(@socket, :edit, product),
+                        class: "text-indigo-600 hover:text-indigo-900"
                       ) %>
                     </span>
                     <span>
-                      <%= link("Delete",
+                      <%= live_redirect("Delete",
                         to: "#",
                         phx_click: "delete",
                         phx_value_id: product.id,
-                        data: [confirm: "Are you sure?"]
+                        data: [confirm: "Are you sure?"],
+                        class: "text-indigo-600 hover:text-indigo-900"
                       ) %>
                     </span>
                   </td>
