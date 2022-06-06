@@ -1,7 +1,3 @@
-<h1>Listing Products</h1>
-<h2><%= @author %></h2>
-
-<%# If action is new or edit %>
 <%= if @live_action in [:new, :edit] do %>
   <.modal return_to={Routes.product_index_path(@socket, :index)}>
     <.live_component
@@ -14,9 +10,6 @@
     />
   </.modal>
 <% end %>
-
-
-
 <!-- This example requires Tailwind CSS v2.0+ -->
 <div class="px-4 sm:px-6 lg:px-8">
   <div class="sm:flex sm:items-center">
@@ -25,58 +18,90 @@
       <p class="mt-2 text-sm text-gray-700">A list of all the products in the database.</p>
     </div>
     <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
-    <span><%=  live_patch "New Product", to: Routes.product_index_path(@socket, :new), class: "inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto"  %></span>
+      <span>
+        <%= live_patch("New Product",
+          to: Routes.product_index_path(@socket, :new),
+          class:
+            "inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto"
+        ) %>
+      </span>
 
-      <%# <button type="button" class="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto">Add product</button> %>
     </div>
   </div>
   <div class="mt-8 flex flex-col">
     <div class="-my-2 -mx-4 sm:-mx-6 lg:-mx-8">
       <div class="inline-block min-w-full py-2 align-middle">
         <div class="shadow-sm ring-1 ring-black ring-opacity-5">
-<table class="min-w-full border-separate" style="border-spacing: 0">
-  <%# <thead>
-    <tr>
-      <th>Name</th>
-      <th>Description</th>
-      <th>Unit price</th>
-      <th>Sku</th>
+          <table class="min-w-full border-separate" style="border-spacing: 0">
+            
+            <thead class="bg-gray-50">
+              <tr>
+                <th
+                  scope="col"
+                  class="sticky top-0 z-10 border-b border-gray-300 bg-gray-50 bg-opacity-75 py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 backdrop-blur backdrop-filter sm:pl-6 lg:pl-8"
+                >
+                  Name
+                </th>
+                <th
+                  scope="col"
+                  class="sticky top-0 z-10 hidden border-b border-gray-300 bg-gray-50 bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold text-gray-900 backdrop-blur backdrop-filter sm:table-cell"
+                >
+                  Description
+                </th>
+                <th
+                  scope="col"
+                  class="sticky top-0 z-10 hidden border-b border-gray-300 bg-gray-50 bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold text-gray-900 backdrop-blur backdrop-filter lg:table-cell"
+                >
+                  Unit price
+                </th>
+                <th
+                  scope="col"
+                  class="sticky top-0 z-10 border-b border-gray-300 bg-gray-50 bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold text-gray-900 backdrop-blur backdrop-filter"
+                >
+                  Sku
+                </th>
+                <th
+                  scope="col"
+                  class="sticky top-0 z-10 border-b border-gray-300 bg-gray-50 bg-opacity-75 py-3.5 pr-4 pl-3 backdrop-blur backdrop-filter sm:pr-6 lg:pr-8"
+                >
+                  <span class="sr-only">Edit</span>
+                </th>
+              </tr>
+            </thead>
+            <tbody id="products">
+              
+              <%= for product <- @products do %>
+                <tr id={"product-#{product.id}"}>
+                  <td><%= product.name %></td>
+                  <td><%= product.description %></td>
+                  <td><%= product.unit_price %></td>
+                  <td><%= product.sku %></td>
 
-      <th></th>
-    </tr>
-  </thead> %>
-
-  <thead class="bg-gray-50">
-    <tr>
-      <th scope="col" class="sticky top-0 z-10 border-b border-gray-300 bg-gray-50 bg-opacity-75 py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 backdrop-blur backdrop-filter sm:pl-6 lg:pl-8">Name</th>
-      <th scope="col" class="sticky top-0 z-10 hidden border-b border-gray-300 bg-gray-50 bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold text-gray-900 backdrop-blur backdrop-filter sm:table-cell">Description</th>
-      <th scope="col" class="sticky top-0 z-10 hidden border-b border-gray-300 bg-gray-50 bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold text-gray-900 backdrop-blur backdrop-filter lg:table-cell">Unit price</th>
-      <th scope="col" class="sticky top-0 z-10 border-b border-gray-300 bg-gray-50 bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold text-gray-900 backdrop-blur backdrop-filter">Sku</th>
-      <th scope="col" class="sticky top-0 z-10 border-b border-gray-300 bg-gray-50 bg-opacity-75 py-3.5 pr-4 pl-3 backdrop-blur backdrop-filter sm:pr-6 lg:pr-8">
-        <span class="sr-only">Edit</span>
-      </th>
-    </tr>
-  </thead>
-  <tbody id="products">
-
-  <%# Map through the products list %>
-    <%= for product <- @products do %>
-      <tr id={"product-#{product.id}"}>
-        <td><%= product.name %></td>
-        <td><%= product.description %></td>
-        <td><%= product.unit_price %></td>
-        <td><%= product.sku %></td>
-
-        <td>
-          <span><%= live_redirect "Show", to: Routes.product_show_path(@socket, :show, product) %></span>
-          <span><%= live_patch "Edit", to: Routes.product_index_path(@socket, :edit, product) %></span>
-          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: product.id, data: [confirm: "Are you sure?"] %></span>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-</div>
+                  <td>
+                    <span>
+                      <%= live_redirect("Show",
+                        to: Routes.product_show_path(@socket, :show, product)
+                      ) %>
+                    </span>
+                    <span>
+                      <%= live_patch("Edit",
+                        to: Routes.product_index_path(@socket, :edit, product)
+                      ) %>
+                    </span>
+                    <span>
+                      <%= link("Delete",
+                        to: "#",
+                        phx_click: "delete",
+                        phx_value_id: product.id,
+                        data: [confirm: "Are you sure?"]
+                      ) %>
+                    </span>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
