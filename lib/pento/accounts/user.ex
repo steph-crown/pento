@@ -5,7 +5,6 @@ defmodule Pento.Accounts.User do
   schema "users" do
     field :email, :string
     field :password, :string, virtual: true, redact: true
-    # field :username, :string
     field :hashed_password, :string, redact: true
     field :confirmed_at, :naive_datetime
 
@@ -31,7 +30,7 @@ defmodule Pento.Accounts.User do
   """
   def registration_changeset(user, attrs, opts \\ []) do
     user
-    |> cast(attrs, [:email, :username, :password])
+    |> cast(attrs, [:email, :password])
     |> validate_email()
     # |> validate_username()
     |> validate_password(opts)
