@@ -1,4 +1,3 @@
-<h1>Show Product</h1>
 
 <%= if @live_action in [:edit] do %>
   <.modal return_to={Routes.product_show_path(@socket, :show, @product)}>
@@ -13,30 +12,60 @@
   </.modal>
 <% end %>
 
-<ul>
-  <li>
-    <strong>Name:</strong>
-    <%= @product.name %>
-  </li>
 
-  <li>
-    <strong>Description:</strong>
-    <%= @product.description %>
-  </li>
 
-  <li>
-    <strong>Unit price:</strong>
-    <%= @product.unit_price %>
-  </li>
+<!-- This example requires Tailwind CSS v2.0+ -->
+<div class="bg-white shadow overflow-hidden sm:rounded-lg">
+  <div class="px-4 py-5 sm:px-6">
+    <h3 class="text-lg leading-6 font-medium text-gray-900">Product details</h3>
+    <p class="mt-1 max-w-2xl text-sm text-gray-500">A short detail about the product</p>
+  </div>
+  <div class="border-t border-gray-200 px-4 py-5 sm:p-0">
+    <dl class="sm:divide-y sm:divide-gray-200">
+      <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <dt class="text-sm font-medium text-gray-500">Name</dt>
+        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">    <%= @product.name %>
+</dd>
+      </div>
+      <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <dt class="text-sm font-medium text-gray-500">Description</dt>
+        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">    <%= @product.description %>
+</dd>
+      </div>
+      <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <dt class="text-sm font-medium text-gray-500">Unit price</dt>
+        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">    <%= @product.unit_price %>
+</dd>
+      </div>
+      <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <dt class="text-sm font-medium text-gray-500">Sku</dt>
+        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">    <%= @product.sku %>
+</dd>
+      </div>
 
-  <li>
-    <strong>Sku:</strong>
-    <%= @product.sku %>
-  </li>
-</ul>
-
-<span>
-  <%= live_patch("Edit", to: Routes.product_show_path(@socket, :edit, @product), class: "button") %>
+      <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <dt class="text-sm font-medium text-gray-500">Actions</dt>
+        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+          <ul role="list" class="border border-gray-200 rounded-md divide-y divide-gray-200">
+            <li class="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
+              <div class="w-0 flex-1 flex items-center">
+                <span>
+  <%= live_patch("Edit", to: Routes.product_show_path(@socket, :edit, @product), class: "button w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500") %>
 </span>
-|
-<span><%= live_redirect("Back", to: Routes.product_index_path(@socket, :index)) %></span>
+
+              </div>
+
+            </li>
+            <li class="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
+              <div class="w-0 flex-1 flex items-center">
+
+              <span><%= live_redirect("Back", to: Routes.product_index_path(@socket, :index), class: "w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500") %></span>
+
+              </div>
+            </li>
+          </ul>
+        </dd>
+      </div>
+    </dl>
+  </div>
+</div>
